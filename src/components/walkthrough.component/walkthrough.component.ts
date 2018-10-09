@@ -29,6 +29,9 @@ const ZINDEX_NOT_SET = '-99999';
         <button class="walkthrough-element walkthrough-button-positive walkthrough-done-button" type="button" *ngIf="useButton" (click)="onCloseClicked($event)">
           {{buttonCaption}}
         </button>
+        <button class="walkthrough-element walkthrough-button-positive walkthrough-done-button" type="button"  (click)="onSkipeClicked($event)">
+          {{button2Caption}}
+        </button>
       </div>
     </div>
   </div>
@@ -296,6 +299,7 @@ export class WalkthroughComponent implements AfterViewChecked {
   DOM_WALKTHROUGH_DONE_BUTTON_CLASS = "walkthrough-done-button";
   DOM_TRANSCLUDE = "walkthrough-transclude";
   BUTTON_CAPTION_DONE = "Got it!";
+  BUTTON_CAPTION_SKIPE = "Pular"
   PADDING_HOLE = 5;
   PADDING_ARROW_START = 5;
   PADDING_ARROW_MARKER = 25;
@@ -310,35 +314,36 @@ export class WalkthroughComponent implements AfterViewChecked {
   closeIcon: string;
   walkthroughIcon: any;
 
-    // single_tap: string = require('../assets/Single_Tap.png');
+  // single_tap: string = require('../assets/Single_Tap.png');
 
-    // double_tap: string = require('../assets/Double_Tap.png');
+  // double_tap: string = require('../assets/Double_Tap.png');
 
-    // swipe_down: string = require('../assets/Swipe_Down.png');
+  // swipe_down: string = require('../assets/Swipe_Down.png');
 
-    // swipe_left: string = require('../assets/Swipe_Left.png');
+  // swipe_left: string = require('../assets/Swipe_Left.png');
 
-    // swipe_right: string = require('../assets/Swipe_Right.png');
+  // swipe_right: string = require('../assets/Swipe_Right.png');
 
-    // swipe_up: string = require('../assets/Swipe_Up.png');
+  // swipe_up: string = require('../assets/Swipe_Up.png');
 
-    // the element have been separated as ionic pro cannot handle class with very large string
-    single_tap: string = new Single_Tap().single_tap;
+  // the element have been separated as ionic pro cannot handle class with very large string
+  single_tap: string = new Single_Tap().single_tap;
 
-    double_tap: string = new Double_Tap().double_tap;
+  double_tap: string = new Double_Tap().double_tap;
 
-    swipe_down: string = new Swipe_Down().swipe_down;
+  swipe_down: string = new Swipe_Down().swipe_down;
 
-    swipe_left: string = new Swipe_Left().swipe_left;
+  swipe_left: string = new Swipe_Left().swipe_left;
 
-    swipe_right: string = new Swipe_Right().swipe_right;
+  swipe_right: string = new Swipe_Right().swipe_right;
 
-    swipe_up: string = new Swipe_Up().swipe_up;
+  swipe_up: string = new Swipe_Up().swipe_up;
 
 
 
   @Input('walkthrough-type') walkthroughType: string;
   @Input('button-caption') buttonCaption: string;
+  @Input('button-skipe-caption') buttonSkipCaption: string;
   @Input('use-button') useButton = false;
   @Input('main-caption') mainCaption: string;
   @Input('icon') walkthroughIconWanted: string;
@@ -401,6 +406,7 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   @Output('on-walkthrough-show') onWalkthroughShowEvent = new EventEmitter<void>();
   @Output('on-walkthrough-hide') onWalkthroughHideEvent = new EventEmitter<void>();
+  @Output('on-walkthrough-skip') onWalkthroughSkip = new EventEmitter<void>();
   @Output('on-walkthrough-content-clicked') onWalkthroughContentClickedEvent = new EventEmitter<void>();
 
   @HostListener('window:resize', ['$event'])
@@ -445,6 +451,7 @@ export class WalkthroughComponent implements AfterViewChecked {
     }, 100);
     this.walkthroughIcon = this.getIcon(this.walkthroughIconWanted);
     this.buttonCaption = this.buttonCaption || this.BUTTON_CAPTION_DONE;
+    this.buttonSkipCaption = this.buttonSkipCaption || this.BUTTON_CAPTION_SKIPE;
     if (this.hasBackdrop === undefined) {
       this.hasBackdrop = (this.walkthroughType !== 'tip');
     }
@@ -783,10 +790,10 @@ export class WalkthroughComponent implements AfterViewChecked {
     if (this.focusElementInteractive && selectorElements) {
       for (let i = 0; i < selectorElements.length; ++i) {
         const selectorElement: HTMLElement = selectorElements.item(i) as HTMLElement;
-        if (selectorElement.style.zIndex !== '99999' ) {
+        if (selectorElement.style.zIndex !== '99999') {
           this._focusElementZindexes[i] = (selectorElement.style.zIndex) ?
-              selectorElement.style.zIndex :
-              ZINDEX_NOT_SET;
+            selectorElement.style.zIndex :
+            ZINDEX_NOT_SET;
           selectorElement.style.zIndex = '99999';
         }
       }
@@ -852,6 +859,12 @@ export class WalkthroughComponent implements AfterViewChecked {
       this.closeWalkthrough();
     }
 
+  }
+
+  onSkipeClicked(event: any){
+   
+      this.onWalkthroughSkip.emit();
+      this.closeWalkthrough();
   }
 
   /**
