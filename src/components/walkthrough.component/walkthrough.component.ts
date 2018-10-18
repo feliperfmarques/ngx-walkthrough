@@ -29,8 +29,8 @@ const ZINDEX_NOT_SET = '-99999';
         <button class="walkthrough-element walkthrough-button-positive walkthrough-done-button" type="button" *ngIf="useButton" (click)="onCloseClicked($event)">
           {{buttonCaption}}
         </button>
-        <button class="walkthrough-element walkthrough-button-positive walkthrough-done-button" type="button"  (click)="onSkipeClicked($event)">
-          {{button2Caption}}
+        <button class="walkthrough-element walkthrough-button-positive walkthrough-skip-button" type="button" *ngIf="useButton" (click)="onSkipeClicked($event)">
+          {{buttonSkipCaption}}
         </button>
       </div>
     </div>
@@ -111,6 +111,16 @@ const ZINDEX_NOT_SET = '-99999';
       right: 30px;
       margin: 0 auto;
   }
+
+  .walkthrough-element.walkthrough-skip-button {
+    position: absolute;
+    bottom: 30px;
+    height: 30px;
+    width: 80px;
+    display: inline-block;
+    left: 30px;
+    margin: 0 auto;
+}
 
   .walkthrough-button-positive {
       border-color: #0c63ee;
@@ -298,8 +308,8 @@ export class WalkthroughComponent implements AfterViewChecked {
   DOM_WALKTHROUGH_ARROW_CLASS = ".walkthrough-arrow";
   DOM_WALKTHROUGH_DONE_BUTTON_CLASS = "walkthrough-done-button";
   DOM_TRANSCLUDE = "walkthrough-transclude";
-  BUTTON_CAPTION_DONE = "Got it!";
-  BUTTON_CAPTION_SKIPE = "Pular"
+  BUTTON_CAPTION_DONE = "Próximo";
+  BUTTON_CAPTION_SKIPE = "Sair";
   PADDING_HOLE = 5;
   PADDING_ARROW_START = 5;
   PADDING_ARROW_MARKER = 25;
@@ -345,6 +355,7 @@ export class WalkthroughComponent implements AfterViewChecked {
   @Input('button-caption') buttonCaption: string;
   @Input('button-skipe-caption') buttonSkipCaption: string;
   @Input('use-button') useButton = false;
+  @Input('skip-button') skipButton = false;
   @Input('main-caption') mainCaption: string;
   @Input('icon') walkthroughIconWanted: string;
   @Input('walkthrough-hero-image') walkthroughHeroImage: any;
@@ -856,22 +867,25 @@ export class WalkthroughComponent implements AfterViewChecked {
   onCloseClicked(event: any) {
     if ((!this.useButton) ||
       (event.currentTarget.className.indexOf(this.DOM_WALKTHROUGH_DONE_BUTTON_CLASS) > -1)) {
-      this.closeWalkthrough();
+        this.onWalkthroughHideEvent.emit();
+        this.closeWalkthrough();
     }
 
   }
 
   onSkipeClicked(event: any){
-   
+    if((!this.skipButton) ||
+    (event.currentTarget.className.indexOf(this.DOM_WALKTHROUGH_DONE_BUTTON_CLASS) > -1)) {
       this.onWalkthroughSkip.emit();
       this.closeWalkthrough();
+    }
   }
 
   /**
    * close the walkthgrough and sen an output event
    */
   closeWalkthrough() {
-    this.onWalkthroughHideEvent.emit();
+    
     // to avoid disturbance with other SVG it is remove from the DOM
     let arrowElement = this.element.nativeElement.querySelector(this.DOM_WALKTHROUGH_ARROW_CLASS);
     if (arrowElement.children.length > 0) {

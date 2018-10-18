@@ -14,7 +14,7 @@
         <button class="walkthrough-element walkthrough-button-positive walkthrough-done-button" type="button" *ngIf="useButton" (click)="onCloseClicked($event)">
           {{buttonCaption}}
         </button>
-        <button class="walkthrough-element walkthrough-button-positive walkthrough-done-button" type="button" (click)="onSkipeClicked($event)">
+        <button class="walkthrough-element walkthrough-button-positive walkthrough-done-button" type="button" *ngIf="useButton" (click)="onSkipeClicked($event)">
           {{buttonSkipCaption}}
         </button>
       </div>
