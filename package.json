@@ -1,7 +1,7 @@
 {
-    "name": "ngx-walkthrough",
+    "name": "ngx-walkthrough-tecnosolve",
     "private": true,
-    "version": "0.2.10",
+    "version": "0.6.0",
     "engines": {
         "node": "9.8.0",
         "npm": "5.6.9"
@@ -11,12 +11,12 @@
     "module": "./esm5/walkthrough.js",
     "es2015": "./esm2015/walkthrough.js",
     "scripts": {
-        "build": "node build.js",
+        "build": "ng-packagr -p ng-packagr.json ",
         "test": "karma start",
         "test:watch": "karma start karma.conf.js --single-run false",
-        "pack:lib": "npm run build && npm pack ./dist",
-        "publish:lib": "npm run build && npm publish ./dist",
-        "publish:lib:next": "npm run build && npm publish --tag next ./dist",
+        "pack:lib": "ng-packagr -p ng-packagr.json && npm pack ./dist",
+        "publish:lib": "ng-packagr -p ng-packagr.json && npm publish ./dist",
+        "publish:lib:next": "ng-packagr -p ng-packagr.json && npm publish --tag next ./dist",
         "compodoc": "compodoc -p tsconfig.json",
         "compodoc:serve": "compodoc -s"
     },
@@ -24,12 +24,12 @@
     "author": "",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Altaba77/ngx-walkthrough.git"
+        "url": "https://github.com/feliperfmarques/ngx-walkthrough.git"
     },
     "bugs": {
-        "url": "https://github.com/Altaba77/ngx-walkthrough/issues"
+        "url": "https://github.com/feliperfmarques/ngx-walkthrough/issues"
     },
-    "homepage": "https://github.com/Altaba77/ngx-walkthrough",
+    "homepage": "https://github.com/feliperfmarques/ngx-walkthrough",
     "keywords": [
         "angular",
         "javascript",
@@ -40,18 +40,18 @@
         "tslib": "^1.7.1"
     },
     "peerDependencies": {
-        "@angular/common": ">= 5.0.0",
-        "@angular/core": ">= 5.0.0"
+        "@angular/common": ">= 6.0.0",
+        "@angular/core": ">= 6.0.0"
     },
     "devDependencies": {
-        "@angular/animations": "5.0.0",
-        "@angular/common": "5.0.0",
-        "@angular/compiler": "5.0.0",
-        "@angular/compiler-cli": "5.0.0",
-        "@angular/core": "5.0.0",
-        "@angular/platform-browser": "5.0.0",
-        "@angular/platform-browser-dynamic": "5.0.0",
-        "@angular/platform-server": "5.0.0",
+        "@angular/animations": "6.0.0",
+        "@angular/common": "6.0.0",
+        "@angular/compiler": "6.0.0",
+        "@angular/compiler-cli": "6.0.0",
+        "@angular/core": "6.0.0",
+        "@angular/platform-browser": "6.0.0",
+        "@angular/platform-browser-dynamic": "6.0.0",
+        "@angular/platform-server": "6.0.0",
         "@compodoc/compodoc": "1.0.3",
         "@types/jasmine": "2.6.2",
         "@types/node": "8.0.47",
@@ -67,21 +67,22 @@
         "karma-sourcemap-loader": "0.3.7",
         "karma-spec-reporter": "0.0.31",
         "karma-webpack": "2.0.5",
+        "ng-packagr": "^4.4.0",
         "reflect-metadata": "0.1.10",
         "rollup": "0.50.0",
         "rollup-plugin-license": "0.6.0",
         "rollup-plugin-node-resolve": "3.0.0",
         "rollup-plugin-sourcemaps": "0.4.2",
-        "rxjs": "5.5.2",
+        "rxjs": "6.0.0",
         "shelljs": "0.7.8",
         "source-map-loader": "0.2.3",
         "ts-loader": "3.1.1",
         "tslint": "5.8.0",
         "tslint-angular": "1.0.0",
-        "typescript": "2.4.2",
+        "typescript": "2.7.2",
         "uglify-js": "3.1.6",
         "uglifyjs": "^2.4.11",
         "webpack": "3.8.1",
-        "zone.js": "0.8.18"
+        "zone.js": "0.8.26"
     }
 }

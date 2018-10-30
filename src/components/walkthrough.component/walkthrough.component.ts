@@ -246,7 +246,7 @@ const ZINDEX_NOT_SET = '-99999';
 
       /*bottom: 70px;*/
   }
-  
+
   .walkthrough-tip-done-button-text-box {
       /*top: 109px;*/
       /*bottom: 59px;*/
@@ -323,6 +323,8 @@ export class WalkthroughComponent implements AfterViewChecked {
   walkthroughArrowElement: HTMLElement;
   closeIcon: string;
   walkthroughIcon: any;
+  tipLocation: any;
+  icon: any;
 
   // single_tap: string = require('../assets/Single_Tap.png');
 
@@ -470,7 +472,7 @@ export class WalkthroughComponent implements AfterViewChecked {
   }
 
   /**
-   * 
+   *
    */
   ngAfterViewChecked() {
     let translude = this.element.nativeElement.querySelectorAll('.' + this.DOM_TRANSCLUDE);
@@ -481,7 +483,7 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   /**
    * Get the icon specify by the input
-   * @param icon 
+   * @param icon
    */
   getIcon(icon: string) {
     let retval = '';
@@ -522,7 +524,7 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   /**
    * Convert url in blob
-   * @param url 
+   * @param url
    */
   toDataURL(url: string): Promise<any> {
     return fetch(url)
@@ -541,11 +543,11 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   /**
    * Set the text position accordint the hole and arrow position plus set the arrow
-   * @param pointSubjectLeft 
-   * @param pointSubjectTop 
-   * @param pointSubjectWidth 
-   * @param pointSubjectHeight 
-   * @param paddingLeft 
+   * @param pointSubjectLeft
+   * @param pointSubjectTop
+   * @param pointSubjectWidth
+   * @param pointSubjectHeight
+   * @param paddingLeft
    */
   setArrowAndText(pointSubjectLeft: number, pointSubjectTop: number, pointSubjectWidth: number, pointSubjectHeight: number, paddingLeft: number) {
     let offsetCoordinates = this.getOffsetCoordinates(this.walkthroughTextElement);
@@ -630,10 +632,10 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   /**
    * Check if given icon covers text or if the text cover the hole
-   * @param iconLeft 
-   * @param iconTop 
-   * @param iconRight 
-   * @param iconBottom 
+   * @param iconLeft
+   * @param iconTop
+   * @param iconRight
+   * @param iconBottom
    */
   isItemOnText(iconLeft: number, iconTop: number, iconRight: number, iconBottom: number) {
     let holeCoordinates = this.getOffsetCoordinates(this.walkthroughHoleElements);
@@ -663,8 +665,8 @@ export class WalkthroughComponent implements AfterViewChecked {
   };
 
   /**
-   * 
-   * @param focusElement 
+   *
+   * @param focusElement
    */
   getOffsetCoordinates(focusElement: HTMLElement) {
     let width: number;
@@ -814,10 +816,10 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   /**
    * Sets the walkthrough focus hole on given params with padding
-   * @param left 
-   * @param top 
-   * @param width 
-   * @param height 
+   * @param left
+   * @param top
+   * @param width
+   * @param height
    */
   setFocus(left: number, top: number, width: number, height: number) {
     let holeDimensions =
@@ -846,8 +848,8 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   /**
    * Set the padding of the tip icon
-   * @param iconPaddingLeft 
-   * @param iconPaddingTop 
+   * @param iconPaddingLeft
+   * @param iconPaddingTop
    */
   setTipIconPadding(iconPaddingLeft: string, iconPaddingTop: string) {
     var iconLocation = '';
@@ -862,7 +864,7 @@ export class WalkthroughComponent implements AfterViewChecked {
 
   /**
    * Close the walkthrough
-   * @param event 
+   * @param event
    */
   onCloseClicked(event: any) {
     if ((!this.useButton) ||
@@ -885,7 +887,7 @@ export class WalkthroughComponent implements AfterViewChecked {
    * close the walkthgrough and sen an output event
    */
   closeWalkthrough() {
-    
+
     // to avoid disturbance with other SVG it is remove from the DOM
     let arrowElement = this.element.nativeElement.querySelector(this.DOM_WALKTHROUGH_ARROW_CLASS);
     if (arrowElement.children.length > 0) {
